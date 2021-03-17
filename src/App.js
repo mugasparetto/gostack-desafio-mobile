@@ -22,10 +22,9 @@ export default function App() {
   }, []);
 
   async function handleLikeRepository(id) {
-    await api.post(`repositories/${id}/like`);
-    const repoCopy = [...repositories];
-    const repoToUpdate = repoCopy.find((repo) => repo.id === id);
-    repoToUpdate.likes++;
+    const { data } = await api.post(`repositories/${id}/like`);
+    console.log(data);
+    const repoCopy = repositories.map((repo) => (repo.id === id ? data : repo));
 
     setRepositories(repoCopy);
   }
